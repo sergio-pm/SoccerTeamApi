@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    parameters {
+        string(name:'container_name',defaultValue:'soccer_team_api',description:'Nombre del contenedor de docker.')
+        string(name:'image_name',defaultValue:'soccer_team_api_img',description:'Nombre de la imagen de docker.')
+        string(name:'tag_image',defaultValue:'lts',description:'Tag de la imagen de la aplicacion.')
+        string(name:'container_port',defaultValue:80,description:'Puerto que usa el contenedor.')
+    }
+
+    stages{
+        stage('install'){
+            steps{
+              git branch: 'develop', url: 'https://github.com/sergio-pm/SoccerTeamApi.git'
+              sh 'npm install'
+            }
+        }
+
+        stage('test'){
+             sh 'npm run test'
+        }
+    }
+}
