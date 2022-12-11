@@ -16,12 +16,10 @@ pipeline {
         stage('install'){
             steps{
               git branch: 'develop', url: 'https://github.com/sergio-pm/SoccerTeamApi.git'
-              sh 'npm install'
             }
         }
 
         stage('test'){
-             sh 'npm run test'
         }
 
         stage('build') {
